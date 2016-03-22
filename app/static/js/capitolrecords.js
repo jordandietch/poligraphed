@@ -7,6 +7,7 @@ $(function() {
     });
 
     var cr_markup = function(title, url, speakder) {
+        console.log(url);
         var cr_div = "<div><a target=\"_blank\" href=\""+ url +"\">" + title + "</a><br /><p>"+ speaker_first + " " + speaker_last +"</p></div>";
         return cr_div;
     };
@@ -26,7 +27,7 @@ $(function() {
             for (var a in data.keywords) {
                 for (var b in data.keywords[a].results) {
                     title = data.keywords[a].results[b].title;
-                    url = data.keywords[a].results[b].origin_url;
+                    url = data.keywords[a].results[b].capitolwords_url;
                     speaker_first = data.keywords[a].results[b].speaker_first;
                     speaker_last = data.keywords[a].results[b].speaker_last;
                     var cr_record = cr_markup(title, url, speaker_first, speaker_last);
