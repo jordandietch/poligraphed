@@ -7,16 +7,10 @@
 {% if active_page == 'index' %}
 {% set navigation_bar = [
     ('/graph', 'graphs', 'Graphs', 'glyphicon glyphicon-stats'),
-    ('/contact', 'contact', 'Contact', 'glyphicon glyphicon-send'),
-    ('/about', 'about', 'About', 'glyphicon glyphicon-info-sign'),
-    ('/donations', 'donations', 'Donations', 'glyphicon glyphicon-usd')
 ] -%}
 {% else %}
 {% set navigation_bar = [
     ('/graph', 'graphs', 'Graphs', 'glyphicon glyphicon-stats'),
-    ('/contact', 'contact', 'Contact', 'glyphicon glyphicon-send'),
-    ('/about', 'about', 'About', 'glyphicon glyphicon-info-sign'),
-    ('/donations', 'donations', 'Donations', 'glyphicon glyphicon-usd'),
     ('/', 'index', 'Home', 'glyphicon glyphicon-home')
 ] -%}
 {% endif %}
@@ -39,17 +33,6 @@
           <a class="navbar-brand" href="{{ url_for('index') }}">Poli<span class="brand-white">graphed</span> <span class="glyphicon glyphicon-stats"></span></a>
         </div>
         <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
-        {% if g.user.is_authenticated() %}
-          <ul class="dropdown-menu">
-            <li><a href ="{{ url_for('edit') }}">Account</a></li>
-            <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
-          </ul>
-        {% endif %}
-        </li>
-      </ul>
 
         </div><!--/.navbar-collapse -->
     </div>

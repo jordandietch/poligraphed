@@ -22,7 +22,8 @@ def convert_jsts(jsts, granularity):
 
     if granularity == 'day':
         start_date = date
-        end_date = date
+        end_dt = dt + datetime.timedelta(days = 1)
+        end_date = str(end_dt.year) + '-' + str(end_dt.month) + '-' + str(end_dt.day)
         date_range = (start_date, end_date)
     elif granularity == 'month':
         start_date = date

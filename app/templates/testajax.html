@@ -11,49 +11,6 @@
 
 {% endblock %}
 
-{% block sidebar %}
-{{ super() }}
-        {% if  saved_graphs%}
-        <div class="saved-graphs">
-          <h5>Saved Graphs</h5>
-        {% for graph in saved_graphs %}
-        <div class="graph-list-container">
-            <div>
-                <form role="form" id="savedGraphForm">
-                    <input name='keyword_1' type='hidden' value="{{graph.keyword_1}}">
-                    <input name='keyword_2' type='hidden' value="{{graph.keyword_2}}">
-                    <input type='hidden' name='date_low' value="{{graph.date_low}}">
-                    <input type='hidden' name='date_high' value="{{graph.date_high}}">
-                    <select hidden  name='granularity' type='hidden'>
-                        <option value="{{graph.granularity}}">day</option>
-                    </select>
-                    <ul class="list-unstyled saved-graph-list">
-                      <li>
-                        <a class="make_graph" style="width: 95px">
-                          {{graph.graph_name}}<br>
-                          {{graph.date_low}} to {{graph.date_high}}<br>
-                          Granularity: {{graph.granularity}}
-                        </a>
-                      </li>
-                    </ul>
-                </form>
-            </div>
-            <div class="delete_graph_container">
-                <form class="form form-inline delete_saved_graph" method="post" role="delete_graph_form">
-                    {{ delete_graph_form.hidden_tag() }}
-                    {{ wtf.form_errors(delete_graph_form, hiddens="only") }}
-                    {{ wtf.form_field(delete_graph_form.graph_id, value=graph.id, type="hidden") }}
-
-                    <button class='btn btn-link btn-xs'  id="delete_graph_form-submit" name="delete_graph_form-submit" type="submit" value="Delete">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                </form>
-            </div>
-        </div>
-        {% endfor %}
-        </div>
-        {% endif %}
-{% endblock %}
 
 {% block page_content %}
 <div class="page-header">
@@ -133,24 +90,6 @@
 
     <button type="button" class="btn btn-success btn-lg save-graph-button pull-right" data-toggle="modal" data-target="#saveGraph"><span class="glyphicon glyphicon-save"></span> Save Graph</button>
 
-
-<!-- Modal -->
-<div class="modal fade" id="saveGraph" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Save Graph</h4>
-      </div>
-      <div class="modal-body">
-        {{ wtf.quick_form(saved_graph_form) }}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <ul id="result"></ul>
 

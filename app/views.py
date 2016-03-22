@@ -9,7 +9,6 @@ from cw_api import cw_search_keywords, cw_search_text
 
 @app.route('/')
 @app.route('/index')
-@login_required
 def index():
     user = g.user
     return render_template('index.html', user=user)
@@ -126,6 +125,7 @@ def _search_cr_api():
 
     date_low = request.args.get('date_low', '', type=str)
     date_high = request.args.get('date_high', '', type=str)
+    print date_high
     granularity = request.args.get('granularity', '', type=str)
 
     api_results = cw_search_text(keywords, date_low, date_high, granularity)
@@ -134,38 +134,6 @@ def _search_cr_api():
 
 
 @app.route('/graph', methods=['GET', 'POST'])
-@login_required
-def test():
-    user = g.user
-    saved_graphs = None
-    deleted_graph_id = None
-    deleted_graph = None
-    saved_graph_form = SavedGraphForm(prefix="saved_graph_form")
-    saved_graphs = SavedGraph.query.filter_by(user_id=user.id).all()
-    delete_graph_form = DeleteGraph(prefix="delete_graph_form")
+def graph():
 
-    if saved_graph_form.validate_on_submit() and saved_graph_form.submit.data:
-        save_graph = SavedGraph(graph_name=saved_graph_form.graph_name.data,
-                                keyword_1=saved_graph_form.keyword_1.data,
-                                keyword_2=saved_graph_form.keyword_2.data,
-                                date_low=saved_graph_form.date_low.data,
-                                date_high=saved_graph_form.date_high.data,
-                                granularity=saved_graph_form.granularity.data,
-                                user_id=user.id
-                                )
-        db.session.add(save_graph)
-        db.session.commit()
-        return redirect(url_for('test'))
-
-    if delete_graph_form.validate_on_submit() and delete_graph_form.submit.data:
-        deleted_graph_id = delete_graph_form.graph_id.data
-        deleted_graph = db.session.query(SavedGraph).filter_by(id=deleted_graph_id).first()
-        db.session.delete(deleted_graph)
-        db.session.commit()
-        return redirect(url_for('test'))
-
-    return render_template('testajax.html',
-                           saved_graphs=saved_graphs,
-                           user=user,
-                           saved_graph_form=saved_graph_form,
-                           delete_graph_form=delete_graph_form)
+    return render_template('testajax.html')

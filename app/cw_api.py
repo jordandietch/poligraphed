@@ -21,7 +21,7 @@ def cw_search_text(keywords, date_low, date_high, granularity):
                         'start_date': date[0],
                         'end_date': date[1],
                         'sort': 'date desc',
-                        'per_page': 5
+                        'per_page': 100
                         }
 
             endpoint = 'http://capitolwords.org/api/1/text.json'
